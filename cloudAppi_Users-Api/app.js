@@ -53,15 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
-// hbs.registerHelper('ifUndefined', (value, options) => {
-//   if (arguments.length < 2)
-//       throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-//   if (typeof value !== undefined ) {
-//       return options.inverse(this);
-//   } else {
-//       return options.fn(this);
-//   }
-// });
+
   
 
 
@@ -75,7 +67,6 @@ const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// app.use('/api/v1', router);
       
 
 module.exports = app;
