@@ -12,7 +12,8 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
-    
+const swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json');  
 
 mongoose
   .connect(process.env.DBATLAS, {useNewUrlParser: true})
@@ -34,44 +35,47 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
+
+
 // Express View engine setup
 
-app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  sourceMap: true
-}));
+// app.use(require('node-sass-middleware')({
+//   src:  path.join(__dirname, 'public'),
+//   dest: path.join(__dirname, 'public'),
+//   sourceMap: true
+// }));
       
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
-hbs.registerHelper('ifUndefined', (value, options) => {
-  if (arguments.length < 2)
-      throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-  if (typeof value !== undefined ) {
-      return options.inverse(this);
-  } else {
-      return options.fn(this);
-  }
-});
+// hbs.registerHelper('ifUndefined', (value, options) => {
+//   if (arguments.length < 2)
+//       throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
+//   if (typeof value !== undefined ) {
+//       return options.inverse(this);
+//   } else {
+//       return options.fn(this);
+//   }
+// });
   
 
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
 
 
-// Enable authentication using session + passport
 
 const index = require('./routes/index');
-app.use('/', index);
+app.use('/',index);
 
 
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/api/v1', router);
       
 
 module.exports = app;
