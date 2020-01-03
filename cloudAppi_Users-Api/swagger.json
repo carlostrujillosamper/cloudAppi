@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Users"
   },
-  "host": "localhost:3000",
+  "host": "cloud-appi-users.herokuapp.com",
   "basePath": "/users",
   "schemes": [
     "http",
