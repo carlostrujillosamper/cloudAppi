@@ -10,7 +10,7 @@ const userSchema = new Schema({
 });
 
 userSchema.pre("save",function(next){
-  this.birthdate = new Date(this.birthDate).toLocaleDateString()
+  this.birthDate = new Date(this.birthDate).toLocaleDateString()
   next()
 })
 

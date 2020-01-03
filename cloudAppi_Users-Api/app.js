@@ -78,8 +78,6 @@ require('./passport')(app);
 const index = require('./routes/index');
 app.use('/', index);
 
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
 
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
